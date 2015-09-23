@@ -3,11 +3,10 @@ FROM kurron/docker-oracle-jdk-8:latest
 
 MAINTAINER Ron Kurr <kurr@jvmguy.com>
 
-# copy the application jar file from the build output directory into the image
-ADD https://bintray.com/artifact/download/kurron/maven/org/kurron/example/monitor-api-gateway/1.5.0.RELEASE/monitor-api-gateway-1.5.0.RELEASE.jar /opt/example/application.jar
+ADD newrelic /opt/example/newrelic
 
-# expose the port that the application will be listening on
-EXPOSE 8000
-
-ENTRYPOINT ["java", "-server", "-Xmx256m", "-Dsun.net.inetaddr.ttl=60", "-jar", "/opt/example/application.jar"]
+ENV NEW_RELIC_APP_NAME ${NEW_RELIC_APP_NAME:-Not Set}
+ENV NEW_RELIC_HOST_DISPLAY_NAME ${NEW_RELIC_HOST_DISPLAY_NAME:-Not Set}
+ENV NEW_RELIC_LICENSE_KEY ${NEW_RELIC_LICENSE_KEY:-9a3465dc990aa65ee1037041a7d0f770ef428cfd}
+ENV NEW_RELIC_LOG ${NEW_RELIC_LOG:-STDOUT}
 
